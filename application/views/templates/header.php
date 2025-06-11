@@ -1,57 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT Maju Lari Bersama</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color:rgb(250, 248, 249);
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><?php echo isset($title) ? $title : 'Default Title'; ?></title>
+    <meta name="description" content="Mafen Tour Travel menyediakan paket wisata terbaik dan terpercaya ke berbagai destinasi populer dalam dan luar negeri. Nikmati perjalanan nyaman, aman, dan berkesan bersama kami.">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/') ?>img/mafenlogo.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/magnific-popup.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/themify-icons.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/nice-select.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/flaticon.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/gijgo.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/animate.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/slick.css">
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/slicknav.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="<?= base_url('assets/home/') ?>css/style.css">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
+<style>
+    .no-margin {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .text-primaryy {
+        color: #f44a40 !important;
+    }
+</style>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="<?php echo base_url(); ?>">PT Maju Lari Bersama</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <?php if ($this->session->userdata('admin_logged_in')): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/dashboard'); ?>">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/paket'); ?>">Paket Wisata</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/bookings'); ?>">Data Booking</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/masukan'); ?>">Pesan Masukan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/logout'); ?>">Logout</a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-Item">
-                            <a class="nav-link" href="<?php echo base_url('booking'); ?>">Form Booking</a>
-                        </li>
-                        <li class="nav-Item">
-                            <a class="nav-link" href="<?php echo base_url('kontak'); ?>">Kontak</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('admin/login'); ?>">Admin Login</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container mt-4">

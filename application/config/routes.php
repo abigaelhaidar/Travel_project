@@ -49,20 +49,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'admin/auth';
+$route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['admin/login'] = 'admin/auth/login';
-$route['admin/logout'] = 'admin/auth/logout';
-$route['admin/dashboard'] = 'admin/dashboard';
-$route['admin/paket'] = 'admin/paket';
-$route['admin/paket/create'] = 'admin/paket/create';
-$route['admin/paket/edit/(:num)'] = 'admin/paket/edit/$1';
-$route['admin/paket/delete/(:num)'] = 'admin/paket/delete/$1';
-$route['admin/bookings'] = 'admin/bookings';
-$route['admin/masukan'] = 'admin/masukan';
-$route['booking'] = 'booking';
-$route['booking/submit'] = 'booking/submit';
-$route['kontak'] = 'kontak';
-$route['kontak/submit'] = 'kontak/submit';
+// Route untuk login admin
+// Auth
+$route['login'] = 'Auth';
+$route['logout'] = 'Auth/logout';
+$route['dashboard'] = 'admin/dashboard';
+
