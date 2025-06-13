@@ -50,14 +50,8 @@
                         <div class="user-wrap">
                             <div class="user-img"><img src="<?= base_url('assets/') ?>img/default.png" alt="user" /></div>
                             <div class="user-content">
-                                <h6><?php echo $user['nama'] ?></h6>
-                                <p class="mb-0"><?php
-                                                if ($user['level'] == 1) {
-                                                    echo 'Admin';
-                                                } else if ($user['level'] == 2) {
-                                                    echo 'User';
-                                                }
-                                                ?><i class="fa-solid fa-chevron-down"></i></p>
+                                <h6><?php echo $user['username'] ?></h6>
+                                
                             </div>
                         </div>
                         <div class="custom-menu overflow-hidden">

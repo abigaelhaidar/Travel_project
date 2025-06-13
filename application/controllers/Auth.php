@@ -41,7 +41,7 @@ class Auth extends CI_Controller {
             ];
             $this->session->set_userdata($data);
 
-            redirect('admin/dashboard'); // Ganti sesuai halaman tujuan login
+            redirect('dashboard'); // Ganti sesuai halaman tujuan login
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah!</div>');
             redirect('Auth');

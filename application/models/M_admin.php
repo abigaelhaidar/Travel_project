@@ -8,42 +8,35 @@ class M_admin extends Ci_Model
         return $this->db->get_where('admins', ['username' => $username])->row_array();
     }
     
-    // Paket
-    public function insert_paket($data)
-    {
-        return $this->db->insert('paket', $data);
-    }
-
-    // funtion get paket array
-    public function get_paket()
-    {
-        return $this->db->get('paket')->result_array();
-    }
-
-    // funtion get all paket result
+    // Ambil semua paket
     public function get_all_pakets()
     {
-        return $this->db->get('paket')->result();
+        return $this->db->get('pakets')->result_array();
     }
 
-    public function simpan_pesanan($data)
+    // Ambil satu paket berdasarkan id
+    public function get_paket_by_id($id)
     {
-        return $this->db->insert('pesanan_wisata', $data);
+        return $this->db->get_where('pakets', ['id' => $id])->row_array();
     }
 
-    // Travel
-    public function insert_travel($data)
+    // Tambah paket
+    public function insert_paket($data)
     {
-        return $this->db->insert('travel', $data);
+        return $this->db->insert('pakets', $data);
     }
 
-    public function get_all_travel()
+    // Edit paket
+    public function update_paket($id, $data)
     {
-        return $this->db->get('travel')->result();
+        $this->db->where('id', $id);
+        return $this->db->update('pakets', $data);
     }
 
-      public function simpan_pesan($data)
+    // Hapus paket
+    public function delete_paket($id)
     {
-        return $this->db->insert('kontak', $data);
+        $this->db->where('id', $id);
+        return $this->db->delete('pakets');
     }
 }
