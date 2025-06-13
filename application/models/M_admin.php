@@ -39,4 +39,10 @@ class M_admin extends Ci_Model
         $this->db->where('id', $id);
         return $this->db->delete('pakets');
     }
+
+    public function get_pakets_karimunjawa()
+    {
+        $this->db->like('nama_paket', 'Karimun Jawa');
+        return $this->db->get('pakets')->result_array();
+    }
 }

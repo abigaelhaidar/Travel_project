@@ -153,31 +153,33 @@
             <div class="col-lg-4 col-md-6">
                 <div class="single_destination">
                     <div class="thumb">
-                        <img src="<?= base_url('assets/img/') ?>destinasibali.png" alt="">
+                        <img src="<?= base_url('assets/') ?>img/karimunjawadestinasi.png" alt="">
                     </div>
                     <div class="content">
-                        <p class="d-flex align-items-center">Bali <a href="<?php echo site_url('destinasi-bali') ?>"> 3 Paket</a> </p>
+                        <p class="d-flex align-items-center">Karimunjawa <a href="<?php echo site_url('destinasi-karimunjawa') ?>"> 3 Paket</a> </p>
+
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="single_destination">
+                    <div class="thumb">
+                        <img src="<?= base_url('assets/img/') ?>destinasibali.png" alt="">
+                    </div>
+                    <div class="content">
+                        <p class="d-flex align-items-center">Magelang <a href="<?php echo site_url('destinasi-bali') ?>"> 3 Paket</a> </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-4 col-md-6">
                 <div class="single_destination">
                     <div class="thumb">
                         <img src="<?= base_url('assets/') ?>img/bromodestinasi.png" alt="">
                     </div>
                     <div class="content">
-                        <p class="d-flex align-items-center">Bromo Malang <a href="<?php echo site_url('destinasi-bromo-malang') ?>"> 3 Paket</a> </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single_destination">
-                    <div class="thumb">
-                        <img src="<?= base_url('assets/') ?>img/karimunjawadestinasi.png" alt="">
-                    </div>
-                    <div class="content">
-                        <p class="d-flex align-items-center">Karimunjawa <a href="<?php echo site_url('destinasi-karimunjawa') ?>"> 3 Paket</a> </p>
-
+                        <p class="d-flex align-items-center">Dieng <a href="<?php echo site_url('destinasi-bromo-malang') ?>"> 3 Paket</a> </p>
                     </div>
                 </div>
             </div>
@@ -204,6 +206,38 @@
         color: #f44a40;
         text-decoration: underline;
     }
+
+    .btn-pesan {
+        background: #fff;
+        color: #f44a40;
+        border: 1px solid #f44a40;
+        border-radius: 20px;
+        padding: 4px 18px;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(244,74,64,0.08);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .btn-pesan:hover {
+        background: #f44a40;
+        color: #fff;
+        text-decoration: none;
+        border-color: #f44a40;
+    }
+    .days {
+        font-size: 15px;
+        color: #888;
+        font-weight: 500;
+    }
+    .fa-clock-o {
+        margin-right: 5px;
+    }
+    .card-bottom-info {
+        margin-top: auto;
+    }
 </style>
 
 <div class="popular_places_area ">
@@ -228,6 +262,11 @@
                         <div class="place_info">
                             <h3 class="paket-title"><?= $paket['nama_paket'] ?></h3>
                             <p><?= $paket['deskripsi'] ?></p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 card-bottom-info">
+                                <a href="<?= site_url('booking-paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
+                                    <i class="fa fa-paper-plane"></i> Pesan
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

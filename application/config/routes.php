@@ -62,4 +62,7 @@ $route['dashboard'] = 'Admin';
 // Route untuk halaman paket wisata admin
 $route['paket_wisata'] = 'Admin/paket_wisata';
 
+// wisata user
+$route['destinasi-karimunjawa'] = 'Home/destinasi_karimunjawa';
+
 
