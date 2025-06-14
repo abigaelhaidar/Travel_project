@@ -260,7 +260,10 @@
                             <a href="#" class="prise">Rp <?= number_format($paket['harga'],0,',','.') ?></a>
                         </div>
                         <div class="place_info">
-                            <h3 class="paket-title"><?= $paket['nama_paket'] ?></h3>
+                            <!-- Judul jadi link ke detail -->
+                            <a href="<?= site_url('detail-paket/'.$paket['id']) ?>">
+                                <h3><?= $paket['nama_paket'] ?></h3>
+                            </a>
                             <p><?= $paket['deskripsi'] ?></p>
                             <div class="d-flex justify-content-between align-items-center mt-auto pt-2 card-bottom-info">
                                 <a href="<?= site_url('booking-paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">

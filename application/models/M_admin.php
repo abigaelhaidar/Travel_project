@@ -45,4 +45,6 @@ class M_admin extends Ci_Model
         $this->db->like('nama_paket', 'Karimun Jawa');
         return $this->db->get('pakets')->result_array();
     }
+
+    
 }

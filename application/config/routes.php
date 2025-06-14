@@ -66,3 +66,6 @@ $route['paket_wisata'] = 'Admin/paket_wisata';
 $route['destinasi-karimunjawa'] = 'Home/destinasi_karimunjawa';
 
 
+$route['detail-paket/(:num)'] = 'Home/detail_paket/$1';
+
+

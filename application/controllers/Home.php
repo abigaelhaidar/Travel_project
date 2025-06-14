@@ -39,4 +39,22 @@ class Home extends CI_Controller
         $this->load->view('home/destinasi_karimunjawa', $data);
         $this->load->view('template/footer', $data);
     } 
+
+    public function detail_paket($id)
+    {
+        $this->load->model('M_admin');
+        $data['paket'] = $this->M_admin->get_paket_by_id($id);
+        
+        if (!$data['paket']) {
+            show_404();
+        }
+
+        
+        $data['title'] = 'Detail Paket - ' . $data['paket']['nama_paket'];
+        $this->load->helper('text'); // untuk word_limiter di view
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/detail_paket', $data);
+        $this->load->view('template/footer', $data);
+    }
 }
