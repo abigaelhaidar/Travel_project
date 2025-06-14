@@ -68,4 +68,9 @@ $route['destinasi-karimunjawa'] = 'Home/destinasi_karimunjawa';
 
 $route['detail-paket/(:num)'] = 'Home/detail_paket/$1';
 
+$route['admin/itinerary/(:num)'] = 'admin/itinerary/$1';
+$route['admin/add_itinerary/(:num)'] = 'admin/add_itinerary/$1';
+$route['admin/edit_itinerary/(:num)'] = 'admin/edit_itinerary/$1';
+$route['admin/delete_itinerary/(:num)'] = 'admin/delete_itinerary/$1';
+
 

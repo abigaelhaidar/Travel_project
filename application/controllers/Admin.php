@@ -163,4 +163,96 @@ class Admin extends CI_Controller
 
         redirect('admin/paket_wisata');
     }
+
+    // Halaman Itinerary
+   // Halaman Itinerary
+    public function itinerary($pakets_id)
+    {
+        $this->load->model('M_admin');
+$data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata('id')])->row_array();
+        $data['paket'] = $this->M_admin->get_paket_by_id($pakets_id);
+        $data['itinerary_list'] = $this->M_admin->get_itinerary_by_paket($pakets_id);
+
+        $this->load->view('templateadmin/header', $data);
+        $this->load->view('templateadmin/topbar', $data);
+        $this->load->view('templateadmin/sidebar', $data);
+        $this->load->view('admin/itinerary', $data);
+        $this->load->view('templateadmin/footer', $data);
+    }
+
+    // Ambil semua itinerary untuk satu paket
+    public function get_itinerary_by_paket($pakets_id)
+    {
+        return $this->db->get_where('itinerary', ['pakets_id' => $pakets_id])->result_array();
+    }
+
+    public function add_itinerary($pakets_id)
+    {
+        $this->load->model('M_admin');
+        if ($this->input->post()) {
+            $data = [
+                'pakets_id' => $pakets_id,
+                'day' => $this->input->post('day'),
+                'judul' => $this->input->post('judul'),
+                'note' => $this->input->post('note'),
+                'list' => $this->input->post('list'),
+                'deskripsi_itenary' => $this->input->post('deskripsi_itenary'),
+                'foto' => ''
+            ];
+            // Upload foto jika ada
+            if (!empty($_FILES['foto']['name'])) {
+                $config['upload_path'] = './uploads/itinerary/';
+                $config['allowed_types'] = 'jpg|jpeg|png|webp';
+                $config['max_size'] = 2048;
+                $this->load->library('upload', $config);
+                if ($this->upload->do_upload('foto')) {
+                    $data['foto'] = $this->upload->data('file_name');
+                }
+            }
+            $this->M_admin->insert_itinerary($data);
+            redirect('admin/itinerary/'.$pakets_id);
+        } else {
+            $data['pakets_id'] = $pakets_id;
+            $this->load->view('admin/itinerary_add', $data);
+        }
+    }
+
+    public function edit_itinerary($id)
+    {
+        $this->load->model('M_admin');
+        $itinerary = $this->M_admin->get_itinerary_by_id($id);
+        if ($this->input->post()) {
+            $data = [
+                'day' => $this->input->post('day'),
+                'judul' => $this->input->post('judul'),
+                'note' => $this->input->post('note'),
+                'list' => $this->input->post('list'),
+                'deskripsi_itenary' => $this->input->post('deskripsi_itenary'),
+            ];
+            // Upload foto jika ada
+            if (!empty($_FILES['foto']['name'])) {
+                $config['upload_path'] = './uploads/itinerary/';
+                $config['allowed_types'] = 'jpg|jpeg|png|webp';
+                $config['max_size'] = 2048;
+                $this->load->library('upload', $config);
+                if ($this->upload->do_upload('foto')) {
+                    $data['foto'] = $this->upload->data('file_name');
+                }
+            }
+            $this->M_admin->update_itinerary($id, $data);
+            redirect('admin/itinerary/'.$itinerary['pakets_id']);
+        } else {
+            $data['itinerary'] = $itinerary;
+            $this->load->view('admin/itinerary_edit', $data);
+        }
+    }
+
+    public function delete_itinerary($id)
+    {
+        $this->load->model('M_admin');
+        $itinerary = $this->M_admin->get_itinerary_by_id($id);
+        $pakets_id = $itinerary['pakets_id'];
+        $this->M_admin->delete_itinerary($id);
+        redirect('admin/itinerary/'.$pakets_id);
+    }
 }

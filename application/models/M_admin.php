@@ -46,5 +46,32 @@ class M_admin extends Ci_Model
         return $this->db->get('pakets')->result_array();
     }
 
-    
+    // itenerary
+    // Ambil semua itinerary untuk satu paket
+    public function get_itinerary_by_paket($pakets_id)
+{
+    return $this->db->get_where('itinerary', ['pakets_id' => $pakets_id])->result_array();
+}
+
+public function get_itinerary_by_id($id)
+{
+    return $this->db->get_where('itinerary', ['id' => $id])->row_array();
+}
+
+public function insert_itinerary($data)
+{
+    return $this->db->insert('itinerary', $data);
+}
+
+public function update_itinerary($id, $data)
+{
+    $this->db->where('id', $id);
+    return $this->db->update('itinerary', $data);
+}
+
+public function delete_itinerary($id)
+{
+    $this->db->where('id', $id);
+    return $this->db->delete('itinerary');
+}
 }

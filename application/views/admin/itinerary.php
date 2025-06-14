@@ -22,7 +22,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6 col-12">
-                <h2>Paket Wisata</h2>
+                <h2>Itinerary Paket: <?= htmlspecialchars($paket['nama_paket']) ?></h2>
             </div>
         </div>
     </div>
@@ -34,38 +34,46 @@
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Table Paket Wisata</h3>
+                        <h3>Table Itinerary</h3>
                         <div class="d-flex">
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addCategoryModal">
-                                <i class="fas fa-plus"></i> Paket
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addItineraryModal">
+                                <i class="fas fa-plus"></i> Itinerary
                             </button>
-                            <!-- Modal Tambah Paket -->
-                            <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModal" aria-hidden="true">
+                            <!-- Modal Tambah Itinerary -->
+                            <div class="modal fade" id="addItineraryModal" tabindex="-1" role="dialog" aria-labelledby="addItineraryModal" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <div class="modal-toggle-wrapper">
-                                                <h4><strong class="font-primary">Tambah Paket Wisata</strong></h4>
-                                                <?php echo form_open_multipart('admin/add_paket', ['id' => 'categoryForm']); ?>
+                                                <h4><strong class="font-primary">Tambah Itinerary</strong></h4>
+                                                <?php echo form_open_multipart('admin/add_itinerary/'.$paket['id'], ['id' => 'itineraryForm']); ?>
                                                     <div class="mb-3">
-                                                        <label for="nama_paket" class="form-label">Nama Paket</label>
-                                                        <input type="text" class="form-control" id="nama_paket" name="nama_paket" required>
+                                                        <label for="day" class="form-label">Hari</label>
+                                                        <input type="text" class="form-control" id="day" name="day" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                                                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" required>
+                                                        <label for="judul" class="form-label">Judul</label>
+                                                        <input type="text" class="form-control" id="judul" name="judul" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="harga" class="form-label">Harga</label>
-                                                        <input type="number" class="form-control" id="harga" name="harga" required>
+                                                        <label for="note" class="form-label">Note</label>
+                                                        <input type="text" class="form-control" id="note" name="note">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="list" class="form-label">List</label>
+                                                        <input type="text" class="form-control" id="list" name="list">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="deskripsi_itenary" class="form-label">Deskripsi</label>
+                                                        <textarea class="form-control" id="deskripsi_itenary" name="deskripsi_itenary"></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="foto" class="form-label">Foto</label>
-                                                        <input type="file" class="form-control" id="foto" name="foto" required>
+                                                        <input type="file" class="form-control" id="foto" name="foto">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" form="categoryForm" class="btn btn-primary">Save</button>
+                                                        <button type="submit" form="itineraryForm" class="btn btn-primary">Save</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -73,42 +81,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Modal Tambah Paket -->
+                            <!-- End Modal Tambah Itinerary -->
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <br>
-                        <table class="display" id="basic-9">
+                        <table class="display" id="itinerary-table">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Paket</th>
+                                    <th>Hari</th>
+                                    <th>Judul</th>
+                                    <th>Note</th>
+                                    <th>List</th>
                                     <th>Deskripsi</th>
-                                    <th>Harga</th>
                                     <th>Foto</th>
-                                    <th>itenerary</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($paket)): ?>
-                                    <?php $no = 1; foreach ($paket as $row): ?>
+                                <?php if (!empty($itinerary_list)): ?>
+                                    <?php $no = 1; foreach ($itinerary_list as $row): ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= htmlspecialchars($row['nama_paket']); ?></td>
-                                            <td><?= htmlspecialchars($row['deskripsi']); ?></td>
-                                            <td>Rp <?= number_format($row['harga'], 0, ',', '.'); ?></td>
+                                            <td><?= htmlspecialchars($row['day']); ?></td>
+                                            <td><?= htmlspecialchars($row['judul']); ?></td>
+                                            <td><?= htmlspecialchars($row['note']); ?></td>
+                                            <td><?= htmlspecialchars($row['list']); ?></td>
+                                            <td><?= htmlspecialchars($row['deskripsi_itenary']); ?></td>
                                             <td>
                                                 <?php if (!empty($row['foto'])): ?>
-                                                    <img src="<?= base_url('uploads/paket/' . $row['foto']); ?>" alt="Foto Paket" width="50">
+                                                    <img src="<?= base_url('uploads/itinerary/' . $row['foto']); ?>" alt="Foto Itinerary" width="50">
                                                 <?php else: ?>
                                                     <span>Foto tidak tersedia</span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td>
-                                                <a href="<?= base_url('admin/itinerary/' . $row['id']); ?>" class="btn btn-info btn-sm">detail Itenerary</a>
                                             <td>
                                                 <ul class="action">
                                                     <li class="edit">
@@ -117,39 +126,47 @@
                                                         </a>
                                                     </li>
                                                     <li class="delete">
-                                                        <a href="<?= base_url('admin/hapus_paket/' . $row['id']); ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus paket ini?');">
+                                                        <a href="<?= base_url('admin/delete_itinerary/' . $row['id']); ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus itinerary ini?');">
                                                             <i class="icon-trash"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
-                                        <!-- Modal Edit Paket -->
+                                        <!-- Modal Edit Itinerary -->
                                         <div class="modal fade" id="editModal<?= $row['id']; ?>" tabindex="-1" aria-labelledby="editModalLabel<?= $row['id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel<?= $row['id']; ?>">Edit Paket Wisata</h5>
+                                                        <h5 class="modal-title" id="editModalLabel<?= $row['id']; ?>">Edit Itinerary</h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form method="post" action="<?= base_url('admin/edit_paket/' . $row['id']); ?>" enctype="multipart/form-data">
+                                                        <form method="post" action="<?= base_url('admin/edit_itinerary/' . $row['id']); ?>" enctype="multipart/form-data">
                                                             <div class="mb-3">
-                                                                <label for="nama_paket<?= $row['id']; ?>" class="form-label">Nama Paket</label>
-                                                                <input type="text" class="form-control" id="nama_paket<?= $row['id']; ?>" name="nama_paket" value="<?= htmlspecialchars($row['nama_paket']); ?>" required>
+                                                                <label for="day<?= $row['id']; ?>" class="form-label">Hari</label>
+                                                                <input type="text" class="form-control" id="day<?= $row['id']; ?>" name="day" value="<?= htmlspecialchars($row['day']); ?>" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="deskripsi<?= $row['id']; ?>" class="form-label">Deskripsi</label>
-                                                                <input type="text" class="form-control" id="deskripsi<?= $row['id']; ?>" name="deskripsi" value="<?= htmlspecialchars($row['deskripsi']); ?>" required>
+                                                                <label for="judul<?= $row['id']; ?>" class="form-label">Judul</label>
+                                                                <input type="text" class="form-control" id="judul<?= $row['id']; ?>" name="judul" value="<?= htmlspecialchars($row['judul']); ?>" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="harga<?= $row['id']; ?>" class="form-label">Harga</label>
-                                                                <input type="number" class="form-control" id="harga<?= $row['id']; ?>" name="harga" value="<?= htmlspecialchars($row['harga']); ?>" required>
+                                                                <label for="note<?= $row['id']; ?>" class="form-label">Note</label>
+                                                                <input type="text" class="form-control" id="note<?= $row['id']; ?>" name="note" value="<?= htmlspecialchars($row['note']); ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="list<?= $row['id']; ?>" class="form-label">List</label>
+                                                                <input type="text" class="form-control" id="list<?= $row['id']; ?>" name="list" value="<?= htmlspecialchars($row['list']); ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="deskripsi_itenary<?= $row['id']; ?>" class="form-label">Deskripsi</label>
+                                                                <textarea class="form-control" id="deskripsi_itenary<?= $row['id']; ?>" name="deskripsi_itenary"><?= htmlspecialchars($row['deskripsi_itenary']); ?></textarea>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="foto<?= $row['id']; ?>" class="form-label">Foto</label>
                                                                 <input type="file" class="form-control" id="foto<?= $row['id']; ?>" name="foto">
                                                                 <?php if (!empty($row['foto'])): ?>
-                                                                    <img src="<?= base_url('uploads/paket/' . $row['foto']); ?>" alt="Foto Paket" width="50" class="mt-2">
+                                                                    <img src="<?= base_url('uploads/itinerary/' . $row['foto']); ?>" alt="Foto Itinerary" width="50" class="mt-2">
                                                                 <?php endif; ?>
                                                             </div>
                                                             <div class="modal-footer">
@@ -161,12 +178,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End Modal Edit Paket -->
+                                        <!-- End Modal Edit Itinerary -->
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
                         <br>
+                        <a href="<?= base_url('admin/paket_wisata'); ?>" class="btn btn-secondary">Kembali ke Paket Wisata</a>
                     </div>
                 </div>
             </div>
@@ -180,9 +198,6 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.edit a').click(function(e) {
-            e.preventDefault();
-            $('#editModal').modal('show');
-        });
+        $('#itinerary-table').DataTable();
     });
 </script>
