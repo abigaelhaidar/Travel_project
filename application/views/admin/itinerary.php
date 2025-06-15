@@ -159,8 +159,8 @@
                                                                 <input type="text" class="form-control" id="list<?= $row['id']; ?>" name="list" value="<?= htmlspecialchars($row['list'] ?? ''); ?>">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="deskripsi_itenary<?= $row['id']; ?>" class="form-label">Deskripsi</label>
-                                                                <textarea class="form-control" id="deskripsi_itenary<?= $row['id']; ?>" name="deskripsi_itenary"><?= htmlspecialchars($row['deskripsi_itinerary'] ?? ''); ?></textarea>
+                                                                <label for="deskripsi_itinerary<?= $row['id']; ?>" class="form-label">Deskripsi</label>
+                                                                <textarea class="form-control" id="deskripsi_itinerary<?= $row['id']; ?>" name="deskripsi_itinerary"><?= htmlspecialchars($row['deskripsi_itinerary'] ?? ''); ?></textarea>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="foto<?= $row['id']; ?>" class="form-label">Foto</label>

@@ -142,7 +142,7 @@
             </div>
         </div>
         <div class="col-lg-6 contentt-container" data-aos="fade-up" data-aos-delay="200">
-            <h4 class="text-primaryy">Preview Itinerary Paket: <?= htmlspecialchars($paket['nama_paket'] ?? '') ?></h4>
+            <h4 class="text-primaryy">Itinerary Paket: <?= htmlspecialchars($paket['nama_paket'] ?? '') ?></h4>
             <?php if (!empty($itinerary_list)): ?>
                 <?php foreach ($itinerary_list as $row): ?>
                     <br>
@@ -161,9 +161,9 @@
                             ?>
                         </ul>
                     <?php endif; ?>
-                    <?php if (!empty($row['deskripsi_itinerary'])): ?>
+                    <!-- <?php if (!empty($row['deskripsi_itinerary'])): ?>
                         <p><?= nl2br(htmlspecialchars($row['deskripsi_itinerary'])) ?></p>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>Belum ada itinerary.</p>
@@ -193,14 +193,15 @@
       position: relative;
         padding-left: 50px;
         max-width: 700px;
-        margin: auto;
+        /* //margin: auto; */
+        border-left: 3px solid #f44a40;
     }
 
     .timeline-label {
      position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: -35px;
+        left: -80px;
         background: #f44a40;
         color: white;
         padding: 6px 12px;
@@ -219,7 +220,6 @@
         display: flex;
         align-items: center;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-left: 3px solid #f44a40;
 
     }
 
