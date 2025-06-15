@@ -22,7 +22,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-sm-6 col-12">
-                <h2>Itinerary Paket: <?= htmlspecialchars($paket['nama_paket']) ?></h2>
+                <h2>Itinerary Paket: <?= htmlspecialchars($paket['nama_paket'] ?? '') ?></h2>
             </div>
         </div>
     </div>
@@ -64,8 +64,8 @@
                                                         <input type="text" class="form-control" id="list" name="list">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="deskripsi_itenary" class="form-label">Deskripsi</label>
-                                                        <textarea class="form-control" id="deskripsi_itenary" name="deskripsi_itenary"></textarea>
+                                                        <label for="deskripsi_itinerary" class="form-label">Deskripsi</label>
+                                                        <textarea class="form-control" id="deskripsi_itinerary" name="deskripsi_itinerary"></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="foto" class="form-label">Foto</label>
@@ -106,11 +106,11 @@
                                     <?php $no = 1; foreach ($itinerary_list as $row): ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
-                                            <td><?= htmlspecialchars($row['day']); ?></td>
-                                            <td><?= htmlspecialchars($row['judul']); ?></td>
-                                            <td><?= htmlspecialchars($row['note']); ?></td>
-                                            <td><?= htmlspecialchars($row['list']); ?></td>
-                                            <td><?= htmlspecialchars($row['deskripsi_itenary']); ?></td>
+                                            <td><?= htmlspecialchars($row['day'] ?? ''); ?></td>
+                                            <td><?= htmlspecialchars($row['judul'] ?? ''); ?></td>
+                                            <td><?= htmlspecialchars($row['note'] ?? ''); ?></td>
+                                            <td><?= htmlspecialchars($row['list'] ?? ''); ?></td>
+                                            <td><?= htmlspecialchars($row['deskripsi_itinerary'] ?? '') ?></td>
                                             <td>
                                                 <?php if (!empty($row['foto'])): ?>
                                                     <img src="<?= base_url('uploads/itinerary/' . $row['foto']); ?>" alt="Foto Itinerary" width="50">
@@ -144,23 +144,23 @@
                                                         <form method="post" action="<?= base_url('admin/edit_itinerary/' . $row['id']); ?>" enctype="multipart/form-data">
                                                             <div class="mb-3">
                                                                 <label for="day<?= $row['id']; ?>" class="form-label">Hari</label>
-                                                                <input type="text" class="form-control" id="day<?= $row['id']; ?>" name="day" value="<?= htmlspecialchars($row['day']); ?>" required>
+                                                                <input type="text" class="form-control" id="day<?= $row['id']; ?>" name="day" value="<?= htmlspecialchars($row['day'] ?? ''); ?>" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="judul<?= $row['id']; ?>" class="form-label">Judul</label>
-                                                                <input type="text" class="form-control" id="judul<?= $row['id']; ?>" name="judul" value="<?= htmlspecialchars($row['judul']); ?>" required>
+                                                                <input type="text" class="form-control" id="judul<?= $row['id']; ?>" name="judul" value="<?= htmlspecialchars($row['judul'] ?? ''); ?>" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="note<?= $row['id']; ?>" class="form-label">Note</label>
-                                                                <input type="text" class="form-control" id="note<?= $row['id']; ?>" name="note" value="<?= htmlspecialchars($row['note']); ?>">
+                                                                <input type="text" class="form-control" id="note<?= $row['id']; ?>" name="note" value="<?= htmlspecialchars($row['note'] ?? ''); ?>">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="list<?= $row['id']; ?>" class="form-label">List</label>
-                                                                <input type="text" class="form-control" id="list<?= $row['id']; ?>" name="list" value="<?= htmlspecialchars($row['list']); ?>">
+                                                                <input type="text" class="form-control" id="list<?= $row['id']; ?>" name="list" value="<?= htmlspecialchars($row['list'] ?? ''); ?>">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="deskripsi_itenary<?= $row['id']; ?>" class="form-label">Deskripsi</label>
-                                                                <textarea class="form-control" id="deskripsi_itenary<?= $row['id']; ?>" name="deskripsi_itenary"><?= htmlspecialchars($row['deskripsi_itenary']); ?></textarea>
+                                                                <textarea class="form-control" id="deskripsi_itenary<?= $row['id']; ?>" name="deskripsi_itenary"><?= htmlspecialchars($row['deskripsi_itinerary'] ?? ''); ?></textarea>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="foto<?= $row['id']; ?>" class="form-label">Foto</label>

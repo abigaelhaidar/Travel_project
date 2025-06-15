@@ -58,15 +58,7 @@
                     </style>
                 </div>
 
-                <div class="col-lg-12 contentt-container" data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="text-primaryy">Description</h4>
-                    <p><?= nl2br($paket['deskripsi']) ?></p>
-                    <?php if (!empty($paket['itinerary'])): ?>
-                        <br>
-                        <p><?= nl2br($paket['itinerary']) ?></p>
-                    <?php endif; ?>
-                    <br>
-                </div>
+                
             </div>
         </div>
     </section>
@@ -120,7 +112,67 @@
     </div>
 </div> -->
 
-<!-- Style tetap dari kode Anda -->
+
+<div class="container">
+
+    <div class="row mt-4">
+        <div class="col-lg-6 timeline-container" data-aos="fade-up" data-aos-delay="300">
+            <div class="timeline">
+                <?php if (!empty($itinerary_list)): ?>
+                    <?php foreach ($itinerary_list as $row): ?>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <img src="<?= !empty($row['foto']) ? base_url('uploads/itinerary/' . $row['foto']) : base_url('assets/img/default-image.png') ?>" alt="Hari ke <?= htmlspecialchars($row['day'] ?? '') ?>" class="img-fluid">
+                                <div class="timeline-text">
+                                    <h4 class="text-primaryy"><?= htmlspecialchars($row['judul'] ?? '') ?></h4>
+                                    <p><?= nl2br(htmlspecialchars($row['deskripsi_itinerary'] ?? '')) ?></p>
+                                </div>
+                            </div>
+                            <div class="timeline-label">Hari <?= htmlspecialchars($row['day'] ?? '') ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="timeline-item">
+                        <div class="timeline-label" style="background:#f44a40;">Belum ada itinerary</div>
+                        <div class="timeline-content">
+                            <p>Silakan tambahkan itinerary terlebih dahulu.</p>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="col-lg-6 contentt-container" data-aos="fade-up" data-aos-delay="200">
+            <h4 class="text-primaryy">Preview Itinerary Paket: <?= htmlspecialchars($paket['nama_paket'] ?? '') ?></h4>
+            <?php if (!empty($itinerary_list)): ?>
+                <?php foreach ($itinerary_list as $row): ?>
+                    <br>
+                    <h4 class="text-primaryy">Hari <?= htmlspecialchars($row['day'] ?? '') ?>: <?= htmlspecialchars($row['judul'] ?? '') ?></h4>
+                    <?php if (!empty($row['list'])): ?>
+                        <ul class="ulli">
+                            <?php
+                            $items = preg_split('/\r\n|[\r\n,]+/', $row['list']);
+                            foreach ($items as $item):
+                                if (trim($item) !== ''):
+                            ?>
+                                <li class="ulli"><p><?= htmlspecialchars($item) ?></p></li>
+                            <?php
+                                endif;
+                            endforeach;
+                            ?>
+                        </ul>
+                    <?php endif; ?>
+                    <?php if (!empty($row['deskripsi_itinerary'])): ?>
+                        <p><?= nl2br(htmlspecialchars($row['deskripsi_itinerary'])) ?></p>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Belum ada itinerary.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<!-- Timeline Style -->
 <style>
     .ulli {
         list-style-type: disc;
@@ -128,18 +180,27 @@
         padding-left: 1px;
         list-style-position: outside;
     }
+
+    .timline-container {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
     .timeline {
-        position: relative;
+      position: relative;
         padding-left: 50px;
-        border-left: 3px solid #f44a40;
         max-width: 700px;
         margin: auto;
     }
+
     .timeline-label {
-        position: absolute;
-        left: -85px;
+     position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        left: -35px;
         background: #f44a40;
         color: white;
         padding: 6px 12px;
@@ -148,54 +209,66 @@
         border-radius: 5px;
         white-space: nowrap;
     }
+
     .timeline-item {
-        position: relative;
+       position: relative;
         margin-bottom: 15px;
         background: #fff;
-        padding: 12px;
+        padding: 12px 12px 12px 40px;
         border-radius: 5px;
         display: flex;
         align-items: center;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-left: 3px solid #f44a40;
+
     }
+
     .timeline-content {
         display: flex;
         align-items: center;
         gap: 15px;
     }
+
     .timeline-content img {
         width: 120px;
         height: 80px;
         object-fit: cover;
         border-radius: 5px;
     }
+
     .timeline-text {
         max-width: 550px;
     }
+
     h4 {
         margin: 0;
         font-size: 16px;
     }
+
     h4 small {
         font-size: 14px;
         font-weight: normal;
         color: gray;
     }
+
     p {
         margin: 5px 0 0;
         font-size: 14px;
         color: #555;
         line-height: 1.5;
     }
+
     @media (max-width: 768px) {
         .timeline {
             padding-left: 0;
         }
+
         .timeline-item {
             flex-direction: column;
             text-align: center;
             padding: 15px;
         }
+
         .timeline-label {
             position: static;
             transform: none;
@@ -205,16 +278,19 @@
             font-size: 14px;
             padding: 8px 12px;
         }
+
         .timeline-content {
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
+
         .timeline-content img {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
         }
+
         .timeline-text {
             max-width: 100%;
         }

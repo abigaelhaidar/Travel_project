@@ -186,30 +186,46 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
         return $this->db->get_where('itinerary', ['pakets_id' => $pakets_id])->result_array();
     }
 
+    // Tambah Itinerary
     public function add_itinerary($pakets_id)
     {
         $this->load->model('M_admin');
+        $this->load->helper(['file', 'form']);
+
         if ($this->input->post()) {
+            $upload_file = null;
+            if (!empty($_FILES['foto']['name'])) {
+                $config['upload_path'] = './uploads/itinerary/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|webp';
+                $config['max_size'] = 2048;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+
+                if ($this->upload->do_upload('foto')) {
+                    $upload_file = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    redirect('admin/itinerary/'.$pakets_id);
+                    return;
+                }
+            }
+
             $data = [
                 'pakets_id' => $pakets_id,
                 'day' => $this->input->post('day'),
                 'judul' => $this->input->post('judul'),
                 'note' => $this->input->post('note'),
                 'list' => $this->input->post('list'),
-                'deskripsi_itenary' => $this->input->post('deskripsi_itenary'),
-                'foto' => ''
+                'deskripsi_itinerary' => $this->input->post('deskripsi_itinerary'),
+                'foto' => $upload_file
             ];
-            // Upload foto jika ada
-            if (!empty($_FILES['foto']['name'])) {
-                $config['upload_path'] = './uploads/itinerary/';
-                $config['allowed_types'] = 'jpg|jpeg|png|webp';
-                $config['max_size'] = 2048;
-                $this->load->library('upload', $config);
-                if ($this->upload->do_upload('foto')) {
-                    $data['foto'] = $this->upload->data('file_name');
-                }
+
+            if ($this->M_admin->insert_itinerary($data)) {
+                $this->session->set_flashdata('success', 'Data itinerary berhasil ditambah!');
+            } else {
+                $this->session->set_flashdata('error', 'Data itinerary gagal ditambah!');
             }
-            $this->M_admin->insert_itinerary($data);
             redirect('admin/itinerary/'.$pakets_id);
         } else {
             $data['pakets_id'] = $pakets_id;
@@ -217,6 +233,7 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
         }
     }
 
+    // Edit Itinerary
     public function edit_itinerary($id)
     {
         $this->load->model('M_admin');
@@ -227,7 +244,7 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
                 'judul' => $this->input->post('judul'),
                 'note' => $this->input->post('note'),
                 'list' => $this->input->post('list'),
-                'deskripsi_itenary' => $this->input->post('deskripsi_itenary'),
+                'deskripsi_itinerary' => $this->input->post('deskripsi_itinerary'),
             ];
             // Upload foto jika ada
             if (!empty($_FILES['foto']['name'])) {
@@ -239,7 +256,11 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
                     $data['foto'] = $this->upload->data('file_name');
                 }
             }
-            $this->M_admin->update_itinerary($id, $data);
+            if ($this->M_admin->update_itinerary($id, $data)) {
+                $this->session->set_flashdata('success', 'Data itinerary berhasil diupdate!');
+            } else {
+                $this->session->set_flashdata('error', 'Data itinerary gagal diupdate!');
+            }
             redirect('admin/itinerary/'.$itinerary['pakets_id']);
         } else {
             $data['itinerary'] = $itinerary;
@@ -247,12 +268,17 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
         }
     }
 
+    // Hapus Itinerary
     public function delete_itinerary($id)
     {
         $this->load->model('M_admin');
         $itinerary = $this->M_admin->get_itinerary_by_id($id);
         $pakets_id = $itinerary['pakets_id'];
-        $this->M_admin->delete_itinerary($id);
+        if ($this->M_admin->delete_itinerary($id)) {
+            $this->session->set_flashdata('success', 'Data itinerary berhasil dihapus!');
+        } else {
+            $this->session->set_flashdata('error', 'Data itinerary gagal dihapus!');
+        }
         redirect('admin/itinerary/'.$pakets_id);
     }
 }

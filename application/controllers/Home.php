@@ -49,7 +49,7 @@ class Home extends CI_Controller
             show_404();
         }
 
-        
+        $data['itinerary_list'] = $this->M_admin->get_itinerary_by_paket($id);
         $data['title'] = 'Detail Paket - ' . $data['paket']['nama_paket'];
         $this->load->helper('text'); // untuk word_limiter di view
         $this->load->view('template/header', $data);
