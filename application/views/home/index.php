@@ -266,7 +266,7 @@
                             </a>
                             <p><?= $paket['deskripsi'] ?></p>
                             <div class="d-flex justify-content-between align-items-center mt-auto pt-2 card-bottom-info">
-                                <a href="<?= site_url('booking-paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
+                                <a href="<?= site_url('booking_paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
                                     <i class="fa fa-paper-plane"></i> Pesan
                                 </a>
                             </div>
