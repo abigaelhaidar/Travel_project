@@ -34,11 +34,13 @@
             <textarea name="alamat" class="form-control" required></textarea>
         </div>
         <div class="form-group mb-2">
-            <label>Paket Wisata</label>
-            <select name="paket_id" class="form-control" required>
+            <label> paket_id Wisata</label>
+            <select name="paket_id" id="paket_id" class="form-control" required>
                 <option value="">-- Pilih Paket --</option>
                 <?php foreach($pakets as $paket): ?>
-                    <option value="<?= $paket['id'] ?>"><?= $paket['nama_paket'] ?></option>
+                    <option value="<?= $paket['id'] ?>" data-harga="<?= $paket['harga'] ?>">
+                        <?= $paket['nama_paket'] ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -47,8 +49,12 @@
             <input type="number" name="jumlah" id="jumlah" class="form-control" min="1" value="1" required>
         </div>
         <div class="form-group mb-2">
+            <label>Harga per Orang (Rp)</label>
+            <input type="text" id="harga" name="harga" class="form-control" readonly>
+        </div>
+        <div class="form-group mb-2">
             <label>Total Harga (Rp)</label>
-            <input type="number" name="total" id="total" class="form-control" readonly required>
+            <input type="text" id="total" name="total" class="form-control" readonly>
         </div>
         <div class="form-group mb-3">
             <label>Special Request</label>
@@ -76,20 +82,26 @@ fetch('https://restcountries.com/v3.1/all?fields=name')
         console.error('Gagal mengambil daftar negara:', error);
     });
     
-// Hitung total otomatis
-const paketSelect = document.getElementById('paket_wisata');
-const jumlahInput = document.getElementById('jumlah');
-const totalInput = document.getElementById('total');
-
-function updateTotal() {
-    const selected = paketSelect.options[paketSelect.selectedIndex];
-    const harga = selected.getAttribute('data-harga') || 0;
-    const jumlah = jumlahInput.value || 1;
-    totalInput.value = harga * jumlah;
+function formatRupiah(angka) {
+    return angka.toLocaleString('id-ID');
 }
 
-paketSelect.addEventListener('change', updateTotal);
-jumlahInput.addEventListener('input', updateTotal);
+document.getElementById('paket_id').addEventListener('change', function() {
+    var harga = this.options[this.selectedIndex].getAttribute('data-harga') || 0;
+    document.getElementById('harga').value = formatRupiah(Number(harga));
+    hitungTotal();
+});
+
+document.getElementById('jumlah').addEventListener('input', function() {
+    hitungTotal();
+});
+
+function hitungTotal() {
+    var harga = parseInt(document.getElementById('harga').value.replace(/\./g,'')) || 0;
+    var jumlah = parseInt(document.getElementById('jumlah').value) || 1;
+    var total = harga * jumlah;
+    document.getElementById('total').value = formatRupiah(total);
+}
 
 // Validasi HTML5 (opsional, untuk feedback langsung)
 document.getElementById('bookingForm').addEventListener('submit', function(e) {

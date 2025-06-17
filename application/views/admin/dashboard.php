@@ -15,26 +15,15 @@
             <div class="col-xl-4 proorder-xxl-1 col-sm-6 box-col-6">
                 <div class="card welcome-banner">
                     <div class="card-header p-0 card-no-border">
-                        <div class="welcome-card">
-                            <img class="w-100 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/welcome-bg.png" alt="" />
-                            <img class="position-absolute img-1 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-1.png" alt="" />
-                            <img class="position-absolute img-2 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-2.png" alt="" />
-                            <img class="position-absolute img-3 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-3.png" alt="" />
-                            <img class="position-absolute img-4 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-4.png" alt="" />
-                            <img class="position-absolute img-5 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-5.png" alt="" />
-                        </div>
+                        <div class="welcome-card"><img class="w-100 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/welcome-bg.png" alt="" /><img class="position-absolute img-1 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-1.png" alt="" /><img class="position-absolute img-2 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-2.png" alt="" /><img class="position-absolute img-3 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-3.png" alt="" /><img class="position-absolute img-4 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-4.png" alt="" /><img class="position-absolute img-5 img-fluid" src="<?= base_url('assets/') ?>admin/images/dashboard-1/img-5.png" alt="" /></div>
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-center">
                             <h1>Hallo,  <?php echo $user['username'] ?><img src="<?= base_url('assets/') ?>admin/images/dashboard-1/hand.png" alt="" /></h1>
                         </div>
 
-                        <p>Selamat Datang!</p>
-                        <div class="d-flex align-center justify-content-between">
-                            <a class="btn btn-pill btn-primary" href="#">
-                                <svg class="stroke-icon">
-                                    <use href="<?= base_url('assets/') ?>admin/svg/icon-sprite.svg#watch"></use>
-                                </svg>
+                        <p> Selamat Datang!</p>
+                        
                                 <!-- Display Time -->
                                 <span id="current-time">11:14:00 AM</span>
 
@@ -66,7 +55,6 @@
                                     // Initial time set on page load
                                     updateTime();
                                 </script>
-                        </div>
                     </div>
                 </div>
             </div>

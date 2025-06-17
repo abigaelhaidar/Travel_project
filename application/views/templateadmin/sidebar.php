@@ -37,9 +37,7 @@
                     <ul class="sidebar-submenu">
                         <li> <a href="<?= base_url('blog_admin'); ?>">Blog</a></li>
                         <li> <a href="<?= base_url('paket_wisata'); ?>">Paket Wisata</a></li>
-                        <li> <a href="<?= base_url('travel_admin'); ?>">Travel</a></li>
                         <li> <a href="<?= base_url('data_booking_paket'); ?>">Data Booking Paket</a></li>
-                        <li> <a href="<?= base_url('data_booking_travel'); ?>">Data Booking Paket</a></li>
                         <li> <a href="<?= base_url('masukan'); ?>">Pesan/Masukan</a></li>
                     </ul>
                 </li>

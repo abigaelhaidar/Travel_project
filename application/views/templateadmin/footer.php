@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 footer-copyright">
-        <p class="mb-0">Copyright 2024 © <a href="" target="_blank">Djautoservice.com</a>. All rights reserved</p>
+        <p class="mb-0">Copyright 2025 © <a href="" target="_blank">Djautoservice.com</a>. All rights reserved</p>
       </div>
       <div class="col-md-6">
         <p class="float-end mb-0">
