@@ -74,4 +74,9 @@ public function delete_itinerary($id)
     $this->db->where('id', $id);
     return $this->db->delete('itinerary');
 }
+
+public function simpan_booking($data)
+{
+    return $this->db->insert('bookings', $data);
+}
 }

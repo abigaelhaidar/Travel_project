@@ -74,7 +74,8 @@ $route['admin/edit_itinerary/(:num)'] = 'admin/edit_itinerary/$1';
 $route['admin/delete_itinerary/(:num)'] = 'admin/delete_itinerary/$1';
 
 $route['booking_paket'] = 'home/booking_paket'; // Form booking wisata
-$route['booking/simpan'] = 'home/simpan_booking'; // Proses simpan booking
+$route['booking_paket/simpan'] = 'home/simpan_pesanan'; // Proses simpan booking
 $route['admin/pesanan'] = 'admin/pesanan_wisata'; // Daftar pesanan wisata di admin
+$route['data_booking_paket'] = 'admin/data_booking_paket';
 
 

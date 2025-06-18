@@ -79,16 +79,19 @@ class Home extends CI_Controller
         $this->form_validation->set_rules('negara', 'Negara', 'required');
         $this->form_validation->set_rules('provinsi', 'Provinsi', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-        $this->form_validation->set_rules('paket_wisata', 'Paket Wisata', 'required');
-        $this->form_validation->set_rules('jumlah', 'Jumlah', 'required|greater_than[0]');
+        $this->form_validation->set_rules('paket_id', 'Paket Wisata', 'required');
+        $this->form_validation->set_rules('jumlah_orang', 'Jumlah', 'required|greater_than[0]');
         $this->form_validation->set_rules('total', 'Total', 'required|greater_than[0]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors('<li>', '</li>'));
-            redirect('booking-paket');
+            redirect('booking_paket');
         }
 
         $this->load->model('M_admin');
+        $paket_id = $this->input->post('paket_id');
+        $paket = $this->M_admin->get_paket_by_id($paket_id);
+
         $data = [
             'nama'          => $this->input->post('nama'),
             'email'         => $this->input->post('email'),
@@ -96,16 +99,15 @@ class Home extends CI_Controller
             'negara'        => $this->input->post('negara'),
             'provinsi'      => $this->input->post('provinsi'),
             'alamat'        => $this->input->post('alamat'),
-            'paket_wisata'  => $this->input->post('paket_wisata'),
-            'jumlah'        => $this->input->post('jumlah'),
+            'paket_id'      => $this->input->post('paket_id'),
+            'jumlah_orang'  => $this->input->post('jumlah_orang'),
             'total'         => $this->input->post('total'),
-            'pesan'         => $this->input->post('pesan')
+            'special_request' => $this->input->post('pesan') // <-- perbaiki di sini
         ];
 
-        if ($this->M_admin->simpan_pesanan($data)) {
-            $this->session->set_flashdata('success', 'Booking berhasil! Silakan konfirmasi ke WhatsApp.');
+        if ($this->M_admin->simpan_booking($data)) {
             // WhatsApp
-            $wa_number = "628818533443";
+            $wa_number = "6285851393874";
             $wa_message = urlencode(
                 "Halo Admin, saya ingin melakukan pemesanan wisata:\n\n"
                 . "Nama: {$data['nama']}\n"
@@ -114,15 +116,15 @@ class Home extends CI_Controller
                 . "Negara: {$data['negara']}\n"
                 . "Provinsi: {$data['provinsi']}\n"
                 . "Alamat: {$data['alamat']}\n"
-                . "Paket Wisata: {$data['paket_wisata']}\n"
-                . "Jumlah Orang: {$data['jumlah']}\n"
+                . "Paket Wisata: {$paket['nama_paket']}\n"
+                . "Jumlah Orang: {$data['jumlah_orang']}\n"
                 . "Total Harga: Rp " . number_format($data['total'], 0, ',', '.') . "\n"
-                . "Pesan Khusus: {$data['pesan']}"
+                . "Pesan Khusus: {$data['special_request']}\n\n"
             );
             redirect("https://wa.me/$wa_number?text=$wa_message");
         } else {
             $this->session->set_flashdata('error', 'Booking gagal disimpan. Silakan coba lagi.');
-            redirect('booking-paket');
+            redirect('booking_paket');
         }
     }
 }

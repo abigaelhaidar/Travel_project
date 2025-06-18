@@ -45,7 +45,6 @@
                             <div class="user-img"><img src="<?= base_url('assets/') ?>img/default.png" alt="user" /></div>
                             <div class="user-content">
                                 <h6><?php echo $user['username'] ?></h6>
-                                
                             </div>
                         </div>
                         <div class="custom-menu overflow-hidden">

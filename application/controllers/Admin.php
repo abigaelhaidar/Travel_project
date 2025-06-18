@@ -3,22 +3,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('M_admin');
-        // Uncomment jika ingin proteksi login admin
-        // if ($this->session->userdata('admin_logged_in') !== TRUE) {
-        //     redirect('auth/login');
-        // }
+        // Pastikan user sudah login
+        if (!$this->session->userdata('id')) {
+            redirect('login'); // Ganti dengan route login kamu
+        }
+        // Ambil data user sekali saja untuk semua method
+        $this->user = $this->db->get_where('admins', [
+            'id' => $this->session->userdata('id')
+        ])->row_array();
     }
 
     public function index()
     {
-        $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata('id')])->row_array();
-
+        $data['user'] = $this->user;
         $this->load->view('templateadmin/header', $data);
         $this->load->view('templateadmin/topbar', $data);
         $this->load->view('templateadmin/sidebar', $data);
@@ -29,7 +31,7 @@ class Admin extends CI_Controller
     // Halaman Paket Wisata
     public function paket_wisata()
     {
-        $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata('id')])->row_array();
+        $data['user'] = $this->user;
         $data['paket'] = $this->db->get('pakets')->result_array();
 
         $this->load->view('templateadmin/header', $data);
@@ -169,7 +171,7 @@ class Admin extends CI_Controller
     public function itinerary($pakets_id)
     {
         $this->load->model('M_admin');
-$data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata('id')])->row_array();
+        $data['user'] = $this->user;
         $data['paket'] = $this->M_admin->get_paket_by_id($pakets_id);
         $data['itinerary_list'] = $this->M_admin->get_itinerary_by_paket($pakets_id);
 
@@ -280,5 +282,17 @@ $data['user'] = $this->db->get_where('admins', ['id' => $this->session->userdata
             $this->session->set_flashdata('error', 'Data itinerary gagal dihapus!');
         }
         redirect('admin/itinerary/'.$pakets_id);
+    }
+
+    // Halaman Data Booking Paket
+    public function data_booking_paket()
+    {
+        $data['user'] = $this->user;
+        $data['bookings'] = $this->db->get('bookings')->result_array();
+        $this->load->view('templateadmin/header', $data);
+        $this->load->view('templateadmin/topbar', $data);
+        $this->load->view('templateadmin/sidebar', $data);
+        $this->load->view('admin/data_booking_paket', $data);
+        $this->load->view('templateadmin/footer', $data);
     }
 }

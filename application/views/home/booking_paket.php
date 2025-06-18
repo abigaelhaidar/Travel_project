@@ -6,7 +6,7 @@
     <?php if($this->session->flashdata('error')): ?>
         <div class="alert alert-danger"><ul><?= $this->session->flashdata('error'); ?></ul></div>
     <?php endif; ?>
-    <form action="<?= site_url('simpan-pesanan') ?>" method="post" id="bookingForm" novalidate>
+    <form action="<?= site_url('booking_paket/simpan') ?>" method="post" id="bookingForm" novalidate>
         <div class="form-group mb-2">
             <label>Nama Lengkap</label>
             <input type="text" name="nama" class="form-control" required>
@@ -46,15 +46,16 @@
         </div>
         <div class="form-group mb-2">
             <label>Jumlah Orang</label>
-            <input type="number" name="jumlah" id="jumlah" class="form-control" min="1" value="1" required>
+            <input type="number" name="jumlah_orang" id="jumlah_orang" class="form-control" min="1" value="1" required>
         </div>
         <div class="form-group mb-2">
             <label>Harga per Orang (Rp)</label>
-            <input type="text" id="harga" name="harga" class="form-control" readonly>
+            <input type="text" id="harga" class="form-control" readonly>
         </div>
         <div class="form-group mb-2">
             <label>Total Harga (Rp)</label>
-            <input type="text" id="total" name="total" class="form-control" readonly>
+            <input type="text" id="total_rupiah" class="form-control" readonly>
+            <input type="hidden" name="total" id="total">
         </div>
         <div class="form-group mb-3">
             <label>Special Request</label>
@@ -92,15 +93,16 @@ document.getElementById('paket_id').addEventListener('change', function() {
     hitungTotal();
 });
 
-document.getElementById('jumlah').addEventListener('input', function() {
+document.getElementById('jumlah_orang').addEventListener('input', function() {
     hitungTotal();
 });
 
 function hitungTotal() {
-    var harga = parseInt(document.getElementById('harga').value.replace(/\./g,'')) || 0;
-    var jumlah = parseInt(document.getElementById('jumlah').value) || 1;
+    var harga = parseInt(document.getElementById('paket_id').options[document.getElementById('paket_id').selectedIndex].getAttribute('data-harga')) || 0;
+    var jumlah = parseInt(document.getElementById('jumlah_orang').value) || 1;
     var total = harga * jumlah;
-    document.getElementById('total').value = formatRupiah(total);
+    document.getElementById('total').value = total; // untuk database
+    document.getElementById('total_rupiah').value = formatRupiah(total); // untuk tampilan
 }
 
 // Validasi HTML5 (opsional, untuk feedback langsung)
