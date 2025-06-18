@@ -46,6 +46,20 @@ class M_admin extends Ci_Model
         return $this->db->get('pakets')->result_array();
     }
 
+    public function get_pakets_magelang()
+    {
+        $this->db->like('nama_paket', 'Magelang');
+        return $this->db->get('pakets')->result_array();
+    }
+
+    public function get_pakets_dieng()
+    {
+        $this->db->like('nama_paket', 'Dieng');
+        return $this->db->get('pakets')->result_array();
+    }
+
+    
+
     // itenerary
     // Ambil semua itinerary untuk satu paket
     public function get_itinerary_by_paket($pakets_id)

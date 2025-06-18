@@ -168,7 +168,7 @@
                         <img src="<?= base_url('assets/img/') ?>destinasibali.png" alt="">
                     </div>
                     <div class="content">
-                        <p class="d-flex align-items-center">Magelang <a href="<?php echo site_url('destinasi-bali') ?>"> 3 Paket</a> </p>
+                        <p class="d-flex align-items-center">Magelang <a href="<?php echo site_url('destinasi-magelang') ?>"> 3 Paket</a> </p>
                     </div>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                         <img src="<?= base_url('assets/') ?>img/bromodestinasi.png" alt="">
                     </div>
                     <div class="content">
-                        <p class="d-flex align-items-center">Dieng <a href="<?php echo site_url('destinasi-bromo-malang') ?>"> 3 Paket</a> </p>
+                        <p class="d-flex align-items-center">Dieng <a href="<?php echo site_url('destinasi-dieng') ?>"> 3 Paket</a> </p>
                     </div>
                 </div>
             </div>

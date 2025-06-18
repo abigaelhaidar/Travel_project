@@ -39,6 +39,30 @@ class Home extends CI_Controller
         $this->load->view('home/destinasi_karimunjawa', $data);
         $this->load->view('template/footer', $data);
     } 
+    // function untuk halaman destinasi_magelang
+    public function destinasi_magelang()
+    {
+        $this->load->model('M_admin');
+        $data['pakets'] = $this->M_admin->get_pakets_magelang();
+        $data['title'] = 'Mafen Tour Travel | Destinasi Magelang';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/destinasi_magelang', $data);
+        $this->load->view('template/footer', $data);
+    } 
+    // function untuk halaman destinasi_karimunjawa
+    public function destinasi_dieng()
+    {
+        $this->load->model('M_admin');
+        $data['pakets'] = $this->M_admin->get_pakets_dieng();
+        $data['title'] = 'Mafen Tour Travel | Destinasi Dieng';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/destinasi_dieng', $data);
+        $this->load->view('template/footer', $data);
+    } 
 
     public function detail_paket($id)
     {
@@ -126,5 +150,13 @@ class Home extends CI_Controller
             $this->session->set_flashdata('error', 'Booking gagal disimpan. Silakan coba lagi.');
             redirect('booking_paket');
         }
+    }
+
+    public function konfirmasi_wa()
+    {
+        // Ambil data dari session flashdata
+        $wa_url = $this->session->flashdata('wa_url');
+        // Tampilkan view konfirmasi yang akan redirect ke WhatsApp
+        $this->load->view('home/konfirmasi_wa', ['wa_url' => $wa_url]);
     }
 }
