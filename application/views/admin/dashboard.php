@@ -42,17 +42,15 @@
                                         return hours + ':' + minutes + ':' + seconds + ' ' + ampm;
                                     }
 
-                                    // Update time every second
+                                    // Update waktu setiap detik
                                     function updateTime() {
                                         const timeElement = document.getElementById('current-time');
                                         const now = new Date();
                                         timeElement.textContent = formatTime(now);
                                     }
 
-                                    // Call updateTime every 1000 milliseconds (1 second)
                                     setInterval(updateTime, 1000);
 
-                                    // Initial time set on page load
                                     updateTime();
                                 </script>
                     </div>

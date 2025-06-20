@@ -41,17 +41,34 @@
                                 <?php endif; ?>
                                 <a href="#" class="prise">Rp <?= number_format($paket['harga'],0,',','.') ?></a>
                             </div>
-                            <div class="place_info d-flex flex-column" style="min-height:210px;">
-                                <h3 class="paket-title mb-2"><?= $paket['nama_paket'] ?></h3>
-                                <p style="font-size:15px;color:#555;line-height:1.5;"><?= $paket['deskripsi'] ?></p>
+                            <div class="place_info">
+                            <!-- Judul jadi link ke detail -->
+                            <a href="<?= site_url('detail-paket/'.$paket['id']) ?>">
+                                <h3><?= $paket['nama_paket'] ?></h3>
+                            </a>
+                            <p><?= $paket['deskripsi'] ?></p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 card-bottom-info">
+                                <a href="<?= site_url('booking_paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
+                                    <i class="fa fa-paper-plane"></i> Pesan
+                                </a>
+                                <div class="days ms-2">
+                                    <i class="fa fa-clock-o"></i>
+                                    <?php
+                                    // Ambil angka hari dari nama_paket, misal: "3 Hari 2 Malam"
+                                    preg_match('/(\d+)\s*Hari/', $paket['nama_paket'], $match);
+                                    $jumlah_hari = isset($match[1]) ? $match[1] : '-';
+                                    ?>
+                                    <?= $jumlah_hari ?> Days
+                                </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="col-12">
                     <div class="alert alert-info text-center mt-4">
-                        Tidak ada paket wisata Karimun Jawa tersedia saat ini.
+                        Tidak ada paket wisata Dieng tersedia saat ini.
                     </div>
                 </div>
             <?php endif; ?>

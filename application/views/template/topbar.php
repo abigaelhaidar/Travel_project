@@ -1,4 +1,3 @@
-
 <header>
     <div class="header-area ">
         <div id="sticky-header" class="main-header-area">
@@ -27,8 +26,8 @@
                                         
                                        <li><a href="#">Layanan Kami <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="<?php echo site_url('destinasi-bali') ?>">Paket Wisata Bali</a></li>
-                                                 <li><a href="<?php echo site_url('destinasi-bromo-malang') ?>">Paket Wisata Bromo Malang</a></li>
+                                                <li><a href="<?php echo site_url('destinasi-magelang') ?>">Paket Wisata Magelang</a></li>
+                                                 <li><a href="<?php echo site_url('destinasi-dieng') ?>">Paket Wisata Dieng</a></li>
                                                   <li><a href="<?php echo site_url('destinasi-karimunjawa') ?>">Paket Karimunjawa</a></li>
                                                 <li><a href="<?php echo site_url('travel-tour-city') ?>">Travel</a></li>
                                             </ul>
@@ -36,7 +35,7 @@
                                         
                                         <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="<?php echo site_url('booking-paket') ?>">Pesan Paket Wisata</a></li>
+                                                <li><a href="<?php echo site_url('booking_paket') ?>">Pesan Paket Wisata</a></li>
                                                  <li><a href="<?php echo site_url('booking-travel') ?>">Pesan Travel</a></li>
                                                 <li><a href="<?php echo site_url('testimoni') ?>">Testimoni</a></li>
                                             </ul>

@@ -26,14 +26,12 @@ class Auth extends CI_Controller {
     // Login function
     private function _login()
 {
-    $username = $this->input->post('nama'); // input login form 'nama'
+    $username = $this->input->post('nama');
     $password = $this->input->post('password');
 
-    // Ambil data dari tabel admins berdasarkan username
     $user = $this->db->get_where('admins', ['username' => $username])->row_array();
 
     if ($user) {
-        // Karena password di database masih plain text, kita bandingkan langsung
         if ($password == $user['password']) {
             $data = [
                 'id' => $user['id'],
@@ -41,7 +39,7 @@ class Auth extends CI_Controller {
             ];
             $this->session->set_userdata($data);
 
-            redirect('dashboard'); // Ganti sesuai halaman tujuan login
+            redirect('dashboard');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah!</div>');
             redirect('Auth');

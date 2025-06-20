@@ -10,9 +10,9 @@
             </div>
             <div class="container content-overlay d-flex justify-content-center align-items-center">
                 <div class="slider_text text-center">
-                    <h3>Bali</h3>
+                    <h3>Magelang</h3>
                     <p>Mafen Tour Travel</p>
-                    <a href="<?php echo site_url('destinasi-bali') ?>" class="boxed-btn3">Selengkapnya</a>
+                    <a href="<?php echo site_url('destinasi-magelang') ?>" class="boxed-btn3">Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -26,9 +26,9 @@
             </div>
             <div class="container content-overlay d-flex justify-content-center align-items-center">
                 <div class="slider_text text-center">
-                    <h3>Bromo Malang</h3>
+                    <h3>Dieng</h3>
                     <p>Mafen Tour Travel</p>
-                    <a href="<?php echo site_url('destinasi-bromo-malang') ?>" class="boxed-btn3">Selengkapnya</a>
+                    <a href="<?php echo site_url('destinasi-dieng') ?>" class="boxed-btn3">Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -251,7 +251,6 @@
             </div>
         </div>
         <div class="row">
-            <!-- Ganti bagian ini dengan kode foreach -->
             <?php foreach($pakets as $paket): ?>
                 <div class="col-lg-4 col-md-6">
                     <div class="single_place">
@@ -269,6 +268,15 @@
                                 <a href="<?= site_url('booking_paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
                                     <i class="fa fa-paper-plane"></i> Pesan
                                 </a>
+                                <div class="days ms-2">
+                                    <i class="fa fa-clock-o"></i>
+                                    <?php
+                                    // Ambil angka hari dari nama_paket, misal: "3 Hari 2 Malam"
+                                    preg_match('/(\d+)\s*Hari/', $paket['nama_paket'], $match);
+                                    $jumlah_hari = isset($match[1]) ? $match[1] : '-';
+                                    ?>
+                                    <?= $jumlah_hari ?> Days
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -428,4 +436,3 @@
         </div>
     </div>
 </div>
-<!-- /testimonial_area  -->

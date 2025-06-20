@@ -40,6 +40,7 @@ class M_admin extends Ci_Model
         return $this->db->delete('pakets');
     }
 
+    // Ambil paket berdasarkan nama
     public function get_pakets_karimunjawa()
     {
         $this->db->like('nama_paket', 'Karimun Jawa');
@@ -63,34 +64,56 @@ class M_admin extends Ci_Model
     // itenerary
     // Ambil semua itinerary untuk satu paket
     public function get_itinerary_by_paket($pakets_id)
-{
-    return $this->db->get_where('itinerary', ['pakets_id' => $pakets_id])->result_array();
-}
+    {
+        return $this->db->get_where('itinerary', ['pakets_id' => $pakets_id])->result_array();
+    }
 
-public function get_itinerary_by_id($id)
-{
-    return $this->db->get_where('itinerary', ['id' => $id])->row_array();
-}
+    // ambil itenerary by id
+    public function get_itinerary_by_id($id)
+    {
+        return $this->db->get_where('itinerary', ['id' => $id])->row_array();
+    }
 
-public function insert_itinerary($data)
-{
-    return $this->db->insert('itinerary', $data);
-}
+    // CRUD untuk itinerary
+    public function insert_itinerary($data)
+    {
+        return $this->db->insert('itinerary', $data);
+    }
 
-public function update_itinerary($id, $data)
-{
-    $this->db->where('id', $id);
-    return $this->db->update('itinerary', $data);
-}
+    public function update_itinerary($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('itinerary', $data);
+    }
 
-public function delete_itinerary($id)
-{
-    $this->db->where('id', $id);
-    return $this->db->delete('itinerary');
-}
+    public function delete_itinerary($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('itinerary');
+    }
 
-public function simpan_booking($data)
-{
-    return $this->db->insert('bookings', $data);
-}
+    // Booking Paket
+    public function simpan_booking($data)
+    {
+        return $this->db->insert('bookings', $data);
+    }
+
+    public function delete_data_booking_paket($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('bookings');
+    }
+
+
+    //kontak
+    public function simpan_masukan($data)
+    {
+        return $this->db->insert('masukan', $data);
+    }
+
+    public function delete_masukan($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('masukan');
+    }
 }

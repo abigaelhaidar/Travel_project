@@ -10,9 +10,8 @@ class Admin extends CI_Controller
         $this->load->model('M_admin');
         // Pastikan user sudah login
         if (!$this->session->userdata('id')) {
-            redirect('login'); // Ganti dengan route login kamu
+            redirect('login');
         }
-        // Ambil data user sekali saja untuk semua method
         $this->user = $this->db->get_where('admins', [
             'id' => $this->session->userdata('id')
         ])->row_array();
@@ -166,7 +165,6 @@ class Admin extends CI_Controller
         redirect('admin/paket_wisata');
     }
 
-    // Halaman Itinerary
    // Halaman Itinerary
     public function itinerary($pakets_id)
     {
@@ -294,5 +292,43 @@ class Admin extends CI_Controller
         $this->load->view('templateadmin/sidebar', $data);
         $this->load->view('admin/data_booking_paket', $data);
         $this->load->view('templateadmin/footer', $data);
+    }
+
+    //delete data booking paket
+    public function delete_data_booking_paket($id)
+    {
+        $this->db->where('id', $id);
+        if ($this->db->delete('bookings')) {
+            $this->session->set_flashdata('success', 'Data Booking berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus data booking.');
+        }
+        redirect('admin/data_booking_paket');
+    }
+
+    // Halaman Masukan/Pesan
+    public function masukan()
+    {
+        $data['user'] = $this->user;
+
+        // pemganggilan data masukan/pewsan
+        $data['masukan'] = $this->db->get('masukan')->result_array();
+        $this->load->view('templateadmin/header', $data);
+        $this->load->view('templateadmin/topbar', $data);
+        $this->load->view('templateadmin/sidebar', $data);
+        $this->load->view('admin/masukan', $data);
+        $this->load->view('templateadmin/footer', $data);
+    }
+
+    // Hapus Masukan/Pesan
+    public function delete_masukan($id)
+    {
+        $this->db->where('id', $id);
+        if ($this->db->delete('masukan')) {
+            $this->session->set_flashdata('success', 'Masukan berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus masukan.');
+        }
+        redirect('admin/masukan');
     }
 }

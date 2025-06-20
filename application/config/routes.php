@@ -61,23 +61,30 @@ $route['dashboard'] = 'Admin';
 
 // Route untuk halaman paket wisata admin
 $route['paket_wisata'] = 'Admin/paket_wisata';
+$route['masukan'] = 'Admin/masukan';
 
-// wisata user
-$route['destinasi-karimunjawa'] = 'Home/destinasi_karimunjawa';
-$route['destinasi-magelang'] = 'Home/destinasi_magelang';
-$route['destinasi-dieng'] = 'Home/destinasi_dieng';
-
-
-$route['detail-paket/(:num)'] = 'Home/detail_paket/$1';
-
+//route itenery admin
 $route['admin/itinerary/(:num)'] = 'admin/itinerary/$1';
 $route['admin/add_itinerary/(:num)'] = 'admin/add_itinerary/$1';
 $route['admin/edit_itinerary/(:num)'] = 'admin/edit_itinerary/$1';
 $route['admin/delete_itinerary/(:num)'] = 'admin/delete_itinerary/$1';
+$route['admin/delete_data_booking_paket/(:num)'] = 'admin/delete_data_booking_paket/$1';
+$route['admin/delete_masukan/(:num)'] = 'admin/delete_masukan/$1';
+$route['admin/pesanan'] = 'admin/pesanan_wisata';
 
-$route['booking_paket'] = 'home/booking_paket'; // Form booking wisata
-$route['booking_paket/simpan'] = 'home/simpan_pesanan'; // Proses simpan booking
-$route['admin/pesanan'] = 'admin/pesanan_wisata'; // Daftar pesanan wisata di admin
+
+// Route user
+$route['destinasi-karimunjawa'] = 'Home/destinasi_karimunjawa';
+$route['destinasi-magelang'] = 'Home/destinasi_magelang';
+$route['destinasi-dieng'] = 'Home/destinasi_dieng';
+$route['tentang-kami'] = 'Home/tentang_kami';
+$route['kontak'] = 'Home/kontak';
+$route['kebijakan-privasi'] = 'Home/kebijakan_privasi';
+$route['syarat-dan-ketentuan'] = 'Home/syarat_dan_ketentuan';
+$route['detail-paket/(:num)'] = 'Home/detail_paket/$1';
 $route['data_booking_paket'] = 'admin/data_booking_paket';
+$route['booking_paket'] = 'home/booking_paket';
+$route['booking_paket/simpan'] = 'home/simpan_pesanan';
+
 
 

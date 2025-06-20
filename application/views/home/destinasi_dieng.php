@@ -51,6 +51,15 @@
                                 <a href="<?= site_url('booking_paket?paket_id='.$paket['id']) ?>" class="btn btn-pesan">
                                     <i class="fa fa-paper-plane"></i> Pesan
                                 </a>
+                                <div class="days ms-2">
+                                    <i class="fa fa-clock-o"></i>
+                                    <?php
+                                    // Ambil angka hari dari nama_paket, misal: "3 Hari 2 Malam"
+                                    preg_match('/(\d+)\s*Hari/', $paket['nama_paket'], $match);
+                                    $jumlah_hari = isset($match[1]) ? $match[1] : '-';
+                                    ?>
+                                    <?= $jumlah_hari ?> Days
+                                </div>
                             </div>
                         </div>
                         </div>
@@ -59,7 +68,7 @@
             <?php else: ?>
                 <div class="col-12">
                     <div class="alert alert-info text-center mt-4">
-                        Tidak ada paket wisata Karimun Jawa tersedia saat ini.
+                        Tidak ada paket wisata Dieng tersedia saat ini.
                     </div>
                 </div>
             <?php endif; ?>

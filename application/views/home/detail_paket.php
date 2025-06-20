@@ -33,7 +33,11 @@
                     <h4 class="text-primaryy"><?= $paket['nama_paket'] ?></h4>
                     <br>
                     <p><i class="fa fa-location-dot"></i> <strong>Tujuan wisata :</strong> <?= $paket['tujuan'] ?? 'Karimun Jawa' ?></p>
-                    <p><i class="fa fa-clock"></i> <strong>Durasi :</strong> <?= $paket['durasi'] ?? '-' ?></p>
+                    <?php
+                    preg_match('/(\d+\s*Hari\s*\d*\s*Malam)/i', $paket['nama_paket'], $match);
+                    $durasi = isset($match[1]) ? $match[1] : '-';
+                    ?>
+                    <p><i class="fa fa-clock"></i> <strong>Durasi :</strong> <?= $durasi ?></p>
                     <p><i class="fa fa-money-bill-wave"></i> <strong>Harga :</strong> Rp <?= number_format($paket['harga'], 0, ',', '.') ?></p>
                     <br>
                     <p><?= nl2br($paket['deskripsi']) ?></p>
@@ -63,54 +67,6 @@
         </div>
     </section>
 </main>
-
-<!-- paket lainnya -->
-<!-- <div class="popular_places_area">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-4">
-                <div class="section_title text-center mb_70">
-                    <h3>Paket Lainnya <span class="text-primaryy"><?= $paket['tujuan'] ?? 'Karimun Jawa' ?></span></h3>
-                </div>
-            </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <?php if (!empty($paket_lainnya)): ?>
-                <?php foreach($paket_lainnya as $lain): ?>
-                    <?php if($lain['id'] != $paket['id']): ?>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single_place">
-                            <div class="thumb">
-                                <img src="<?= base_url('uploads/paket/'.$lain['foto']) ?>" alt="<?= $lain['nama_paket'] ?>">
-                                <a href="<?= site_url('detail-paket/'.$lain['id']) ?>" class="prise">Rp <?= number_format($lain['harga'], 0, ',', '.') ?></a>
-                            </div>
-                            <div class="place_info">
-                                <a href="<?= site_url('detail-paket/'.$lain['id']) ?>">
-                                    <h3><?= $lain['nama_paket'] ?></h3>
-                                </a>
-                                <p><?= word_limiter($lain['deskripsi'], 15) ?></p>
-                                <div class="rating_days d-flex justify-content-between">
-                                    <span class="d-flex justify-content-center align-items-center">
-                                        <a href="<?= site_url('booking-paket') ?>"><span class="text-primaryy">Pesan</span></a>
-                                    </span>
-                                    <div class="days">
-                                        <i class="fa fa-clock-o"></i>
-                                        <a href="<?= site_url('detail-paket/'.$lain['id']) ?>"><?= $lain['durasi'] ?? '-' ?></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-12 text-center">
-                    <p>Tidak ada paket lainnya.</p>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div> -->
 
 
 <div class="container">
@@ -167,6 +123,66 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>Belum ada itinerary.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+
+<!-- paket lainnya -->
+<div class="popular_places_area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="section_title text-center mb_70">
+                    <?php
+                    $nama_paket = $paket['nama_paket'];
+                    // Ambil hanya kata sebelum angka (misal: "Karimun Jawa" dari "Karimun Jawa 3 Hari 2 Malam")
+                    if (preg_match('/^([^\d]+)/', $nama_paket, $match)) {
+                        $destinasi = trim($match[1]);
+                    } else {
+                        $destinasi = $nama_paket;
+                    }
+                    ?>
+                    <h3><span class="text-primaryy"><?= $destinasi ?></span> lainnya</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <?php if (!empty($paket_lainnya)): ?>
+                <?php foreach($paket_lainnya as $lain): ?>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="single_place">
+                            <div class="thumb">
+                                <img src="<?= base_url('uploads/paket/'.$lain['foto']) ?>" alt="<?= $lain['nama_paket'] ?>">
+                                <a href="<?= site_url('detail-paket/'.$lain['id']) ?>" class="prise">Rp <?= number_format($lain['harga'], 0, ',', '.') ?></a>
+                            </div>
+                            <div class="place_info">
+                                <a href="<?= site_url('detail-paket/'.$lain['id']) ?>">
+                                    <h3><?= $lain['nama_paket'] ?></h3>
+                                </a>
+                                <p><?= word_limiter($lain['deskripsi'], 15) ?></p>
+                                <div class="rating_days d-flex justify-content-between">
+                                    <span class="d-flex justify-content-center align-items-center">
+                                        <a href="<?= site_url('booking_paket?paket_id='.$lain['id']) ?>"><span class="text-primaryy">Pesan</span></a>
+                                    </span>
+                                    <div class="days">
+                                        <i class="fa fa-clock-o"></i>
+                                        <?php
+                                        preg_match('/(\d+)\s*Hari/', $lain['nama_paket'], $match);
+                                        $jumlah_hari = isset($match[1]) ? $match[1] : '-';
+                                        ?>
+                                        <?= $jumlah_hari ?> Days
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12 text-center">
+                    <p>Tidak ada paket lainnya.</p>
+                </div>
             <?php endif; ?>
         </div>
     </div>

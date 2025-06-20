@@ -3,11 +3,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('M_admin');
+        date_default_timezone_set('Asia/Jakarta');
+    }
+
   public function index()
   {
     $this->load->model('M_admin');
-    $data['pakets'] = $this->M_admin->get_all_pakets(); // pastikan method ini ada di model
-    // pemganggilan title halaman custom
+    $data['pakets'] = $this->M_admin->get_all_pakets();
+
         $data['title'] = 'Mafen Tour Travel | Liburan Nyaman & Terjangkau ke Destinasi Impian Anda';
         
         $this->load->view('template/header', $data);
@@ -15,6 +22,77 @@ class Home extends CI_Controller
         $this->load->view('home/index', $data);
         $this->load->view('template/footer', $data);
   }
+
+  // Function untuk halaman tentang kami
+    public function tentang_kami()
+    {
+        $data['title'] = 'Mafen Tour Travel | Tentang Kami';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/tentang_kami', $data);
+        $this->load->view('template/footer', $data);
+    }
+
+    // Function untuk halaman syarat dan ketentuan
+    public function syarat_dan_ketentuan()
+    {
+        $data['title'] = 'Mafen Tour Travel | Syarat dan Ketentuan';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/syarat_dan_ketentuan', $data);
+        $this->load->view('template/footer', $data);
+    }
+
+    // Function untuk halaman kebijakan
+    public function kebijakan_privasi()
+    {
+        $data['title'] = 'Mafen Tour Travel | Kebijakan Privasi';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/kebijakan_privasi', $data);
+        $this->load->view('template/footer', $data);
+    }
+
+     // Function untuk halaman kontak
+    public function kontak()
+    {
+        $data['title'] = 'Mafen Tour Travel | Kontak';
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('home/kontak', $data);
+        $this->load->view('template/footer', $data);
+    }
+
+    // Function untuk menyimpan data masukan
+    public function simpan()
+    {
+    
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('pesan', 'Pesan', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            redirect(base_url('kontak'));
+        } else {
+
+            // Data yang akan disimpan ke database
+            $data = array(
+                'nama'       => $this->input->post('nama'),
+                'email'      => $this->input->post('email'),
+                'subject'    => $this->input->post('subject'),
+                'pesan'      => $this->input->post('pesan'),
+                'created_at' => date('Y-m-d H:i:s')
+            );
+
+            $this->db->insert('masukan', $data);
+
+            $this->session->set_flashdata('success', 'Pesan/masukan berhasil dikirim! Kami akan menghubungi Anda secepatnya.');
+            redirect('kontak');
+        }
+    }
 
   // Function untuk halaman paket
     public function paket_wisata()
@@ -39,6 +117,7 @@ class Home extends CI_Controller
         $this->load->view('home/destinasi_karimunjawa', $data);
         $this->load->view('template/footer', $data);
     } 
+
     // function untuk halaman destinasi_magelang
     public function destinasi_magelang()
     {
@@ -51,7 +130,7 @@ class Home extends CI_Controller
         $this->load->view('home/destinasi_magelang', $data);
         $this->load->view('template/footer', $data);
     } 
-    // function untuk halaman destinasi_karimunjawa
+    // function untuk halaman destinasi_dieng
     public function destinasi_dieng()
     {
         $this->load->model('M_admin');
@@ -64,18 +143,36 @@ class Home extends CI_Controller
         $this->load->view('template/footer', $data);
     } 
 
+
+    // Function untuk halaman detail paket
     public function detail_paket($id)
     {
         $this->load->model('M_admin');
         $data['paket'] = $this->M_admin->get_paket_by_id($id);
-        
+
         if (!$data['paket']) {
             show_404();
         }
 
+        $nama_paket = $data['paket']['nama_paket'];
+        if (stripos($nama_paket, 'Karimun Jawa') !== false) {
+            $paket_lainnya = $this->M_admin->get_pakets_karimunjawa();
+        } elseif (stripos($nama_paket, 'Magelang') !== false) {
+            $paket_lainnya = $this->M_admin->get_pakets_magelang();
+        } elseif (stripos($nama_paket, 'Dieng') !== false) {
+            $paket_lainnya = $this->M_admin->get_pakets_dieng();
+        } else {
+            $paket_lainnya = $this->M_admin->get_all_pakets();
+        }
+
+        // Hilangkan paket yang sedang dibuka
+        $data['paket_lainnya'] = array_filter($paket_lainnya, function($p) use ($id) {
+            return $p['id'] != $id;
+        });
+
         $data['itinerary_list'] = $this->M_admin->get_itinerary_by_paket($id);
         $data['title'] = 'Detail Paket - ' . $data['paket']['nama_paket'];
-        $this->load->helper('text'); // untuk word_limiter di view
+        $this->load->helper('text');
         $this->load->view('template/header', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('home/detail_paket', $data);
@@ -94,6 +191,7 @@ class Home extends CI_Controller
         $this->load->view('template/footer', $data);
     }
 
+    // Function untuk menyimpan pesanan data booking
     public function simpan_pesanan()
     {
         $this->load->library('form_validation');
@@ -126,11 +224,10 @@ class Home extends CI_Controller
             'paket_id'      => $this->input->post('paket_id'),
             'jumlah_orang'  => $this->input->post('jumlah_orang'),
             'total'         => $this->input->post('total'),
-            'special_request' => $this->input->post('pesan') // <-- perbaiki di sini
+            'special_request' => $this->input->post('pesan')
         ];
 
         if ($this->M_admin->simpan_booking($data)) {
-            // WhatsApp
             $wa_number = "6285851393874";
             $wa_message = urlencode(
                 "Halo Admin, saya ingin melakukan pemesanan wisata:\n\n"
@@ -145,18 +242,19 @@ class Home extends CI_Controller
                 . "Total Harga: Rp " . number_format($data['total'], 0, ',', '.') . "\n"
                 . "Pesan Khusus: {$data['special_request']}\n\n"
             );
-            redirect("https://wa.me/$wa_number?text=$wa_message");
+            $wa_url = "https://wa.me/$wa_number?text=$wa_message";
+            $this->session->set_flashdata('wa_url', $wa_url);
+            redirect('home/konfirmasi_wa');
         } else {
             $this->session->set_flashdata('error', 'Booking gagal disimpan. Silakan coba lagi.');
             redirect('booking_paket');
         }
     }
 
+    // Function untuk konfirmasi WhatsApp
     public function konfirmasi_wa()
     {
-        // Ambil data dari session flashdata
         $wa_url = $this->session->flashdata('wa_url');
-        // Tampilkan view konfirmasi yang akan redirect ke WhatsApp
         $this->load->view('home/konfirmasi_wa', ['wa_url' => $wa_url]);
     }
 }

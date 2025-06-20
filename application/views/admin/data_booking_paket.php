@@ -1,3 +1,25 @@
+<script src="<?= base_url('assets/') ?>admin/js/sweetalert/sweetalert2.min.js"></script>
+<script src="<?= base_url('assets/') ?>admin/js/sweetalert/sweetalert-custom.js"></script>
+<script>
+    // Cek apakah ada flashdata untuk success
+    <?php if ($this->session->flashdata('success')): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '<?= $this->session->flashdata('success') ?>',
+        });
+    <?php endif; ?>
+
+    // Cek apakah ada flashdata untuk error
+    <?php if ($this->session->flashdata('error')): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '<?= $this->session->flashdata('error') ?>',
+        });
+    <?php endif; ?>
+</script>
+
 <div class="container mt-4">
     <h2>Daftar Pesanan Booking Paket</h2>
     <div class="table-responsive">
@@ -16,6 +38,7 @@
                     <th>Total</th>
                     <th>Special Request</th>
                     <th>Tanggal Pesanan</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +57,15 @@
                         <td>Rp <?= number_format($b['total'],0,',','.') ?></td>
                         <td><?= htmlspecialchars($b['special_request']) ?></td>
                         <td><?= $b['tanggal_pesanan'] ?></td>
+                        <td>
+                            <ul class="action">
+                                <li class="delete">
+                                    <a href="<?= base_url('Admin/delete_data_booking_paket/' . $b['id']) ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                        <i class="icon-trash"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
